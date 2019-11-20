@@ -10,8 +10,8 @@ hub:
   baseUrl: /
   cookieSecret:
   publicURL:
-  uid: 1000
-  fsGid: 1000
+  uid: 0
+  fsGid: 0
   nodeSelector: {}
   concurrentSpawnLimit: 64
   consecutiveFailureLimit: 5
@@ -74,7 +74,7 @@ rbac:
 
 
 proxy:
-  secretToken: ''
+  secretToken: '2c11018d387b5551949d5365e67571743f9ed7481fa5ee0831b0f62343fd8843'
   service:
     type: LoadBalancer
     labels: {}
@@ -196,15 +196,15 @@ singleuser:
     extraVolumes: []
     extraVolumeMounts: []
     static:
-      pvcName:
+      pvcName: myapp-nfs
       subPath: '{username}'
-    capacity: 10Gi
+    capacity: 5Gi
     homeMountPath: /home/jovyan
     dynamic:
-      storageClass:
+      storageClass: manual
       pvcNameTemplate: claim-{username}{servername}
       volumeNameTemplate: volume-{username}{servername}
-      storageAccessModes: [ReadWriteOnce]
+      storageAccessModes: [ReadWriteMany]
   image:
     name: jupyterhub/k8s-singleuser-sample
     tag: '0.8.2'
